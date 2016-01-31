@@ -21,17 +21,17 @@ trait ImageUpload
     /**
      * @return bool
      */
-    public function isValidTypes()
+    public function isValidTypes($image)
     {
-        return in_array($_FILES['picture']['type'], $this->types);
+        return in_array($image['type'], $this->types);
     }
 
     /**
      * @return bool
      */
-    public function isValidSize()
+    public function isValidSize($image)
     {
-        return $_FILES['picture']['size'] <= $this->size;
+        return $image['size'] <= $this->size;
     }
 
     /**
@@ -81,6 +81,8 @@ trait ImageUpload
             imagecopyresampled($dest, $source, 0, 0, 0, 0, $this->maxSizeX, $this->maxSizeY, $width, $height);
             $imageFunc($dest, $this->tmpPath . $newName);
             imagedestroy($dest);
+        } else {
+            imagejpeg($source, $this->tmpPath . $newName);
         }
         imagedestroy($source);
         return $newName;
@@ -103,21 +105,22 @@ trait ImageUpload
     public function copy($name)
     {
         if (!@copy($this->tmpPath . $name, $this->imageUploadPath . $name)) {
-            throw new Exception('Что-то пошло не так');
+            throw new Exception('Copy error');
         }
         unlink($this->tmpPath . $name);
     }
 
     /**
+     * @param $image
      * @return mixed
      * @throws Exception
      */
-    public function upload()
+    public function upload($image)
     {
-        if (!$this->isValidSize() || !$this->isValidTypes()) {
-            throw new Exception('Размеры и тип изображения не валидны');
+        if (!$this->isValidSize($image) || !$this->isValidTypes($image)) {
+            throw new Exception('Size and type not valid');
         }
-        $newImageName = $this->resize($_FILES['picture']);
+        $newImageName = $this->resize($image);
         $this->copy($newImageName);
         return $newImageName;
     }

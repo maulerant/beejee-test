@@ -28,11 +28,11 @@ class CommentController extends Controller
         $post = $this->request->post();
         if (!empty($post) && !empty($post['username']) && !empty($post['body'])) {
             $Comment = new Comment();
-            if (empty($post['picture'])) {
+            if (empty($_FILES['picture'])) {
                 $post['image'] = '';
             } else {
                 $this->imageUploadPath = ROOT_PATH . '/media/upload/';
-                $post['image'] = $this->upload();
+                $post['image'] = $this->upload($_FILES['picture']);
             }
             $Comment->create($post);
         }
