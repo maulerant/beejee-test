@@ -13,7 +13,7 @@ class Request
      */
     public function __construct($routes = [])
     {
-        $this->routes = [];
+        $this->routes = $routes;
         $this->requestedURI = empty($_GET['q']) ? $this->getDefaultRoute() : $_GET['q'];
     }
 
