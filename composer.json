@@ -1,0 +1,22 @@
+{
+  "name": "lashyn/beejee-test",
+  "description": "test task for beejee",
+  "minimum-stability": "stable",
+  "license": "LGPL-3.0+",
+  "authors": [
+    {
+      "name": "Igor Lashyn",
+      "email": "ilashyn@gmail.com",
+      "homepage": "https://github.com/maulerant",
+      "role": "Developer"
+    }
+  ],
+  "config": {
+    "bin-dir": "bin"
+  },
+  "autoload": {
+    "psr-0": {
+      "BeeJee": "src"
+    }
+  }
+}
