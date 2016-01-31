@@ -6,6 +6,7 @@ use BeeJee\App;
 
 class Controller
 {
+    /** @var  Request */
     public $request;
     public $view;
     public $layout = 'main';
@@ -40,5 +41,16 @@ class Controller
         ]);
         $content = $this->view->render($this->name . DIRECTORY_SEPARATOR . $view, $context);
         return $this->view->renderLayout($this->layout, $content, $context);
+    }
+
+    /**
+     * Only current domain
+     *
+     *
+     * @param $url
+     */
+    public function redirect($url)
+    {
+        Response::redirect($this->request->getDomain() . 'index.php?q=' . $url);
     }
 }

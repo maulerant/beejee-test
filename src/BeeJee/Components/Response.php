@@ -8,7 +8,11 @@ class Response
     protected $statusCode = 200;
     protected $version = '1.1';
     protected $statusText = 'Ok';
-    
+
+    /**
+     * @param int $statusCode
+     * @param     $content
+     */
     public function __construct($statusCode = 200, $content)
     {
         $this->statusCode = $statusCode;
@@ -18,19 +22,37 @@ class Response
         }
     }
 
+    /**
+     *
+     */
     public function send()
     {
         $this->sendHeader();
         $this->sendContent();
     }
 
+    /**
+     *
+     */
     public function sendHeader()
     {
         header("HTTP/{$this->version} $this->statusCode {$this->statusText}");
     }
 
+    /**
+     *
+     */
     public function sendContent()
     {
         echo $this->content;
+    }
+
+    /**
+     * @param $url
+     */
+    public static function redirect($url)
+    {
+        header("Location: {$url}");
+        exit();
     }
 }

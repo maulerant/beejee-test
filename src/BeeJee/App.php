@@ -22,6 +22,7 @@ class App
         $this->request = new Request($config['routes']);
         $this->basePath = dirname(__FILE__);
         DataSource::init($this->config);
+        session_start();
     }
 
     /**
@@ -47,5 +48,13 @@ class App
         }
         $response = new Response($statusCode, $output);
         $response->send();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return empty($_SESSION['isAdmin']) ? false : $_SESSION['isAdmin'];
     }
 }

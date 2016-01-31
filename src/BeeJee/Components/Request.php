@@ -54,6 +54,14 @@ class Request
     }
 
     /**
+     * @return string
+     */
+    public function getDomain()
+    {
+        return 'http://' . $_SERVER['SERVER_NAME'] . '/';
+    }
+
+    /**
      * @return mixed
      */
     public function get()
