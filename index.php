@@ -4,7 +4,8 @@ define('DEBUG', true);
 
 require(__DIR__ . '/vendor/autoload.php');
 
-$config = require(__DIR__ . '/src/Configs/main.php');
-$local = require(__DIR__ . '/src/Configs/main-local.php');
+$config = require(__DIR__ . '/src/BeeJee/Configs/main.php');
+$local = require(__DIR__ . '/src/BeeJee/Configs/main-local.php');
 
-print_r(array_merge($config, $local));
+$app = new BeeJee\App(array_merge($config, $local));
+$app->run();
