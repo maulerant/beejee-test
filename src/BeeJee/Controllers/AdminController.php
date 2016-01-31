@@ -3,6 +3,7 @@
 namespace BeeJee\Controllers;
 
 use BeeJee\Components\Controller;
+use BeeJee\Models\Admin;
 
 class AdminController extends Controller
 {
@@ -17,9 +18,10 @@ class AdminController extends Controller
     public function actionLogin()
     {
         $post = $this->request->post();
-        if (!empty($post) && $this->check($post)) {
+        $Admin = new Admin();
+        if (!empty($post) && $Admin->check($post)) {
             $_SESSION['isAdmin'] = true;
-            $this->redirect('index/index');
+            $this->redirect('comment/index');
         }
         return $this->render('login');
     }
@@ -27,14 +29,6 @@ class AdminController extends Controller
     public function actionLogout()
     {
         $_SESSION['isAdmin'] = false;
-        $this->redirect('index/index');
-    }
-
-    protected function check($post)
-    {
-        if (isset($post['username']) && isset($post['password'])) {
-            return $post['username'] == 'admin' && $post['password'] == '123';
-        }
-        return false;
+        $this->redirect('comment/index');
     }
 }

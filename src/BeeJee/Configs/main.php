@@ -8,6 +8,6 @@ return [
         'password' => '',
     ],
     'routes' => [
-        'default' => 'index/index'
+        'default' => 'comment/index'
     ],
 ];
