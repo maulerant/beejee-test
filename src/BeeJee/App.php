@@ -53,7 +53,7 @@ class App
     /**
      * @return bool
      */
-    public function isAdmin()
+    public static function isAdmin()
     {
         return empty($_SESSION['isAdmin']) ? false : $_SESSION['isAdmin'];
     }

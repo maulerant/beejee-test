@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= $title ?></title>
     <link href="/media/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/media/css/docs.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -17,15 +18,25 @@
     <script src="/media/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="header">
-    <?php if ($isAdmin): ?>
-        <a href="index.php?q=admin/logout">Логаут</a>
-    <?php else: ?>
-        <a href="index.php?q=admin/login">Логин</a>
-    <?php endif; ?>
-</div>
-<div class="content">
-    <?= $content ?>
+<header class="navbar navbar-static-top bs-docs-nav">
+    <div class="container">
+        <nav id="bs-navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <?php if ($isAdmin): ?>
+                        <a href="index.php?q=admin/logout">Логаут</a>
+                    <?php else: ?>
+                        <a href="index.php?q=admin/login">Логин</a>
+                    <?php endif; ?>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<div class="container bs-docs-container">
+    <div class="row">
+        <?= $content ?>
+    </div>
 </div>
 
 </body>

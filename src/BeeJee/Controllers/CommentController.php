@@ -17,15 +17,8 @@ class CommentController extends Controller
     {
         $get = $this->request->get();
         $Comment = new Comment();
-        $query = $Comment->ds->prepare('SELECT * FROM comments ORDER by :order_by :direction;');
-        $orderBy = isset($get['order_by']) && in_array($get['order_by'],
-            ['username', 'created_at']) ? $get['order_by'] : 'created_at';
-        $query->execute([
-            ':order_by' => $orderBy,
-            ':direction' => ($orderBy == 'created_at') ? 'DESC' : 'ASC'
-        ]);
         return $this->render('index', [
-            'comments' => $query->fetchAll(),
+            'comments' => $Comment->getAll($get['order_by']),
             'isAdmin' => $this->app->isAdmin()
         ]);
     }
@@ -33,10 +26,14 @@ class CommentController extends Controller
     public function actionCreate()
     {
         $post = $this->request->post();
-        if (!empty($post)) {
+        if (!empty($post) && !empty($post['username']) && !empty($post['body'])) {
             $Comment = new Comment();
-            $this->imageUploadPath = ROOT_PATH . '/media/upload/';
-            $post['image'] = $this->upload();
+            if (empty($post['picture'])) {
+                $post['image'] = '';
+            } else {
+                $this->imageUploadPath = ROOT_PATH . '/media/upload/';
+                $post['image'] = $this->upload();
+            }
             $Comment->create($post);
         }
         $this->redirect('comment/index');

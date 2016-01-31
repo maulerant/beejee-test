@@ -2,6 +2,7 @@
 
 namespace BeeJee\Models;
 
+use BeeJee\App;
 use BeeJee\Components\Model;
 
 class Comment extends Model
@@ -68,8 +69,23 @@ class Comment extends Model
             ':email' => isset($post['email']) ? $post['email'] : $comment['username'],
             ':body' => isset($post['body']) ? $post['body'] : $comment['body'],
             ':accepted' => isset($post['accepted']) && $post['accepted'] == 'on',
-            ':changed_by_admin' => isset($post['changed_by_admin']) ? $post['changed_by_admin'] : $comment['changed_by_admin']
+            ':changed_by_admin' => $this->isChangedByAdmin($comment, $post)
         ]);
+    }
+
+    /**
+     * @param $comment
+     * @param $post
+     * @return bool
+     */
+    public function isChangedByAdmin($comment, $post)
+    {
+        if ($comment['changed_by_admin']) {
+            return true;
+        }
+        return ($post['username'] != $comment['username'])
+        || ($post['body'] != $post['body'])
+        || ($post['email'] != $post['email']);
     }
 
     /**
@@ -83,5 +99,22 @@ class Comment extends Model
             ':id' => $id
         ]);
         return $query->fetch();
+    }
+
+    /**
+     * @param string $orderBy
+     * @return array
+     */
+    public function getAll($orderBy = 'created_at')
+    {
+        if (App::isAdmin()) {
+            $sql = 'SELECT * FROM comments ORDER by ';
+        } else {
+            $sql = 'SELECT * FROM comments WHERE accepted = 1 ORDER by ';
+        }
+        $sql .= ($orderBy == 'username') ? 'username asc' : 'created_at desc';
+        $query = $this->ds->prepare($sql);
+        $query->execute();
+        return $query->fetchAll();
     }
 }
