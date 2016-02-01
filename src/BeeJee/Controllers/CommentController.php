@@ -41,6 +41,9 @@ class CommentController extends Controller
 
     public function actionEdit()
     {
+        if (!$this->app->isAdmin()) {
+            $this->redirect('admin/login');
+        }
         $get = $this->request->get();
         if (empty($get) || !isset($get['id'])) {
             $this->redirect('comment/index');
@@ -54,6 +57,9 @@ class CommentController extends Controller
 
     public function actionUpdate()
     {
+        if (!$this->app->isAdmin()) {
+            $this->redirect('admin/login');
+        }
         $post = $this->request->post();
         if (!empty($post) && isset($post['id'])) {
             $Comment = new Comment();

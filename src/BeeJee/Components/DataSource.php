@@ -23,10 +23,15 @@ class DataSource
         return self::getInstance($options);
     }
 
+    /**
+     * @param $options
+     * @return string
+     */
     public static function getDNS($options)
     {
         return $options['database']['driver'] . ':host=' . $options['database']['host'] . ((!empty($options['database']['port'])) ? (';port=' . $options['database']['port']) : '') . ';dbname=' . $options['database']['base'];
     }
+
     /**
      * @param array $options
      * @return PDO

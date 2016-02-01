@@ -8,7 +8,7 @@ trait ImageUpload
 {
     public $imageUploadPath = '/tmp/';
     public $tmpPath = '/tmp/';
-    public $types = array('image/gif', 'image/png', 'image/jpeg');
+    public $types = ['image/gif', 'image/png', 'image/jpeg'];
     public $size = 1024000;
     public $maxSizeX = 320;
     public $maxSizeY = 240;
@@ -82,7 +82,7 @@ trait ImageUpload
             $imageFunc($dest, $this->tmpPath . $newName);
             imagedestroy($dest);
         } else {
-            imagejpeg($source, $this->tmpPath . $newName);
+            $imageFunc($source, $this->tmpPath . $newName);
         }
         imagedestroy($source);
         return $newName;
