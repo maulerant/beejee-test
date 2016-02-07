@@ -18,5 +18,8 @@
     "psr-0": {
       "BeeJee": "src"
     }
+  },
+  "require": {
+    "phpspec/phpspec": "2.4.1"
   }
 }

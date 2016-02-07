@@ -5,6 +5,7 @@ namespace BeeJee;
 use BeeJee\Components\DataSource;
 use BeeJee\Components\Request;
 use BeeJee\Components\Response;
+use BeeJee\Components\Route;
 use Exception;
 
 class App
@@ -19,7 +20,7 @@ class App
     public function __construct(Array $config)
     {
         $this->config = $config;
-        $this->request = new Request($config['routes']);
+        $this->request = new Request();
         $this->basePath = dirname(__FILE__);
         DataSource::init($this->config);
         session_start();
@@ -31,11 +32,12 @@ class App
     public function run()
     {
         try {
-            $controllerClass = $this->request->getControllerClass($this->request->requestedURI);
+            $route = new Route($this->config['routes']);
+            $controllerClass = $route->getControllerClass($this->request->getRequestedURI());
             if (!class_exists($controllerClass)) {
                 throw new Exception('Controller not found');
             }
-            $action = $this->request->getAction($this->request->requestedURI);
+            $action = $route->getAction($this->request->getRequestedURI());
             $controller = new $controllerClass($this, $this->request);
             if (!method_exists($controller, $action)) {
                 throw new Exception('Action not found');
