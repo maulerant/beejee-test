@@ -32,7 +32,7 @@ class Route
     public function getControllerClass($uri)
     {
         if (empty($uri)) {
-            throw new Exception('Controller not found');
+            $uri = $this->getDefaultRoute();
         }
         $exploded = explode('/', $uri);
         return "BeeJee\\Controllers\\" . ucfirst(reset($exploded)) . 'Controller';
@@ -46,7 +46,7 @@ class Route
     public function getAction($uri)
     {
         if (empty($uri)) {
-            throw new Exception('Controller not found');
+            $uri = $this->getDefaultRoute();
         }
         $exploded = explode('/', $uri);
         return 'action' . ucfirst(empty($exploded[1]) ? 'index' : $exploded[1]);

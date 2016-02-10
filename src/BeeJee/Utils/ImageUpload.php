@@ -95,7 +95,7 @@ trait ImageUpload
     public function getNewName($name)
     {
         $exploded = explode('.', $name);
-        return implode('.', [md5($name), end($exploded)]);
+        return implode('.', [md5(time() . $name), end($exploded)]);
     }
 
     /**

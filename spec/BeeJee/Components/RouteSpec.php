@@ -61,15 +61,23 @@ class RouteSpec extends ObjectBehavior
 
     function it_create_classname_of_controller_from_uri()
     {
+        $routes = [
+            'default' => 'defaultcontroller/defaultaction',
+        ];
+        $this->beConstructedWith($routes);
         $this->getControllerClass('index')->shouldReturn("BeeJee\\Controllers\\IndexController");
         $this->getControllerClass('controller/action')->shouldReturn("BeeJee\\Controllers\\ControllerController");
-        $this->shouldThrow('\Exception')->during('getControllerClass', ['']);
+        $this->getControllerClass('')->shouldReturn("BeeJee\\Controllers\\DefaultcontrollerController");
     }
 
     function it_create_action_method_from_uri()
     {
+        $routes = [
+            'default' => 'defaultcontroller/defaultaction',
+        ];
+        $this->beConstructedWith($routes);
         $this->getAction('controller')->shouldReturn("actionIndex");
         $this->getAction('controller/action')->shouldReturn("actionAction");
-        $this->shouldThrow('\Exception')->during('getAction', ['']);
+        $this->getAction('')->shouldReturn("actionDefaultaction");
     }
 }
