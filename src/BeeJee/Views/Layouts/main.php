@@ -23,10 +23,10 @@
         <nav id="bs-navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <?php if ($isAdmin): ?>
-                        <a href="index.php?q=admin/logout">Логаут</a>
+                    <?php if (isset($isAdmin) && $isAdmin): ?>
+                        <a href="/index.php?q=admin/logout">Логаут</a>
                     <?php else: ?>
-                        <a href="index.php?q=admin/login">Логин</a>
+                        <a href="/index.php?q=admin/login">Логин</a>
                     <?php endif; ?>
                 </li>
             </ul>

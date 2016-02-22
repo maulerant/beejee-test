@@ -16,7 +16,8 @@ class Request
      */
     public function getDomain()
     {
-        return 'http://' . $_SERVER['SERVER_NAME'] . '/';
+        $domain = empty($_SERVER['SERVER_NAME'])? $_SERVER['HTTP_HOST']:$_SERVER['SERVER_NAME'];
+        return 'http://' . $domain . '/';
     }
 
     /**

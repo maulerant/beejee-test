@@ -2,8 +2,8 @@
     <div class="row">
         <div class="col-md-11 order_by">
             <strong>Отсортировать по:</strong>
-            <a href="index.php?q=comment/index&order_by=username">Имени</a>
-            <a href="index.php?q=comment/index&order_by=created_at">Дате</a>
+            <a href="/index.php?q=comment/index&order_by=username">Имени</a>
+            <a href="/index.php?q=comment/index&order_by=created_at">Дате</a>
         </div>
     </div>
     <?php if (!empty($comments)): ?>
@@ -16,7 +16,7 @@
                         <code class="changed_by_admin"> Изменил админ </code>
                     <?php endif; ?>
                     <?php if ($isAdmin): ?>
-                        <span class="edit"><a href="index.php?q=comment/edit&id=<?= $comment['id'] ?>">Редактировать</a></span>
+                        <span class="edit"><a href="/index.php?q=comment/edit&id=<?= $comment['id'] ?>">Редактировать</a></span>
                     <?php endif; ?>
                 </h5>
 
@@ -43,7 +43,7 @@
 </div>
 
 <div class="col-md-12 add-comment-form" role="form">
-    <form action="index.php?q=comment/create" method="POST" enctype="multipart/form-data">
+    <form action="/index.php?q=comment/create" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="username">Имя:</label>
             <input class="username form-control" name="username" placeholder="Your name"/>

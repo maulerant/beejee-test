@@ -1,5 +1,5 @@
 <div class="col-md-5 login-form" role="form">
-    <form action="index.php?q=admin/login" method="POST">
+    <form action="/index.php?q=admin/login" method="POST">
         <div class="form-group">
             <label for="username">Имя:</label>
             <input class="username form-control" name="username"/>
