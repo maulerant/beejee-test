@@ -18,7 +18,7 @@ class CommentController extends Controller
         $get = $this->request->get();
         $Comment = new Comment();
         return $this->render('index', [
-            'comments' => $Comment->getAll($get['order_by']),
+            'comments' => $Comment->getAll(empty($get['order_by']) ? '' : $get['order_by']),
             'isAdmin' => $this->app->isAdmin()
         ]);
     }
@@ -28,7 +28,7 @@ class CommentController extends Controller
         $post = $this->request->post();
         if (!empty($post) && !empty($post['username']) && !empty($post['body'])) {
             $Comment = new Comment();
-            if (empty($_FILES['picture'])) {
+            if (empty($post['picture']) || empty($_FILES['picture'])) {
                 $post['image'] = '';
             } else {
                 $this->imageUploadPath = ROOT_PATH . '/media/upload/';

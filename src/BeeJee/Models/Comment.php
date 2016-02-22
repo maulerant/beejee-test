@@ -68,8 +68,8 @@ class Comment extends Model
             ':username' => isset($post['username']) ? $post['username'] : $comment['username'],
             ':email' => isset($post['email']) ? $post['email'] : $comment['username'],
             ':body' => isset($post['body']) ? $post['body'] : $comment['body'],
-            ':accepted' => isset($post['accepted']) && $post['accepted'] == 'on',
-            ':changed_by_admin' => $this->isChangedByAdmin($comment, $post)
+            ':accepted' => (int) (isset($post['accepted']) && $post['accepted'] == 'on'),
+            ':changed_by_admin' => (int) $this->isChangedByAdmin($comment, $post)
         ]);
     }
 
@@ -84,8 +84,8 @@ class Comment extends Model
             return true;
         }
         return ($post['username'] != $comment['username'])
-        || ($post['body'] != $post['body'])
-        || ($post['email'] != $post['email']);
+        || ($post['body'] != $comment['body'])
+        || ($post['email'] != $comment['email']);
     }
 
     /**
